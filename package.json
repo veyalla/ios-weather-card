@@ -1,0 +1,37 @@
+{
+  "type": "module",
+  "source": "src/index.ts",
+  "module": "dist/ios-weather-card.js",
+  "debug": "dist/ios-weather-card.js",
+  "targets": {
+    "module": {
+      "distDir": "./dist",
+      "publicUrl": "/hacsfiles/ios-weather-card/",
+      "includeNodeModules": true
+    },
+    "debug": {
+      "distDir": "../../community/ios-weather-card",
+      "publicUrl": "/hacsfiles/ios-weather-card/",
+      "includeNodeModules": true
+    }
+  },
+  "scripts": {
+    "build": "parcel build --target module",
+    "build:all": "parcel build",
+    "debug": "parcel build --target debug",
+    "watch": "parcel watch --target debug"
+  },
+  "devDependencies": {
+    "@parcel/transformer-inline-string": "^2.8.3",
+    "parcel": "^2.8.3"
+  },
+  "dependencies": {
+    "@lit-labs/observers": "^2.0.5",
+    "custom-card-helpers": "^1.9.0",
+    "home-assistant-js-websocket": "^8.0.1",
+    "lit": "^2.7.4",
+    "memoize-one": "^6.0.0",
+    "suncalc": "^1.9.0",
+    "lightningcss": "^1.30.1"
+  }
+}
