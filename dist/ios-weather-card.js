@@ -2227,7 +2227,7 @@ const $a670ed82a1e76f75$export$49fb620566936d3e = (attributes, feature)=>// esli
 
 
 var $3980b2957099e800$exports = {};
-$3980b2957099e800$exports = ":host {\n  display: block;\n}\n\nha-card {\n  color: #fff;\n  background: linear-gradient(#2c3e50 0%, #34495e 50%, #4a6278 100%);\n  border-radius: 20px;\n  overflow: hidden;\n}\n\n.card-content {\n  padding: 16px;\n}\n\n.header {\n  text-align: center;\n  padding-bottom: 12px;\n}\n\n.location {\n  justify-content: center;\n  align-items: center;\n  gap: 4px;\n  margin-bottom: 4px;\n  display: flex;\n}\n\n.location-name {\n  font-size: 24px;\n  font-weight: 400;\n}\n\n.location ha-icon {\n  --mdc-icon-size: 16px;\n  opacity: .8;\n}\n\n.current-weather {\n  flex-direction: column;\n  align-items: center;\n  display: flex;\n}\n\n.temp-large {\n  margin: 0;\n  font-size: 86px;\n  font-weight: 200;\n  line-height: 1;\n}\n\n.condition-row {\n  align-items: center;\n  gap: 6px;\n  margin-top: 4px;\n  display: flex;\n}\n\n.condition-icon {\n  width: 20px;\n  height: 20px;\n}\n\n.condition-icon svg {\n  width: 100%;\n  height: 100%;\n}\n\n.condition-text {\n  font-size: 18px;\n  font-weight: 500;\n}\n\n.high-low {\n  margin-top: 4px;\n  font-size: 18px;\n  font-weight: 500;\n}\n\n.alert-section {\n  border-top: 1px solid #fff3;\n  border-bottom: 1px solid #fff3;\n  align-items: center;\n  gap: 8px;\n  margin: 8px 0;\n  padding: 10px 0;\n  display: flex;\n}\n\n.alert-section ha-icon {\n  --mdc-icon-size: 18px;\n  opacity: .9;\n}\n\n.alert-section span {\n  font-size: 16px;\n  font-weight: 400;\n}\n\n.section-divider {\n  background: #fff3;\n  height: 1px;\n  margin: 8px 0;\n}\n\n.sun {\n  fill: var(--weather-icon-sun-color, #fdd93c);\n}\n\n.moon {\n  fill: var(--weather-icon-moon-color, #fcf497);\n}\n\n.cloud-back {\n  fill: var(--weather-icon-cloud-back-color, #d4d4d4);\n}\n\n.cloud-front {\n  fill: var(--weather-icon-cloud-front-color, #f9f9f9);\n}\n\n.rain {\n  fill: var(--weather-icon-rain-color, #30b3ff);\n}\n\n.snow {\n  fill: var(--weather-icon-snow-color, #f9f9f9);\n  stroke: var(--weather-icon-snow-stroke-color, #d4d4d4);\n  stroke-width: 1px;\n  paint-order: stroke;\n}\n\n.unavailable {\n  text-align: center;\n  color: var(--secondary-text-color);\n  padding: 16px;\n}\n";
+$3980b2957099e800$exports = ":host {\n  display: block;\n}\n\nha-card {\n  color: #fff;\n  background: linear-gradient(#2c3e50 0%, #34495e 50%, #4a6278 100%);\n  border-radius: 20px;\n  overflow: hidden;\n}\n\n.card-content {\n  text-align: left;\n  padding: 16px;\n}\n\nios-hourly-forecast, ios-daily-forecast {\n  text-align: left;\n  display: block;\n}\n\n.header {\n  text-align: center;\n  padding-bottom: 12px;\n}\n\n.location {\n  justify-content: center;\n  align-items: center;\n  gap: 4px;\n  margin-bottom: 4px;\n  display: flex;\n}\n\n.location-name {\n  font-size: 24px;\n  font-weight: 400;\n}\n\n.location ha-icon {\n  --mdc-icon-size: 16px;\n  opacity: .8;\n}\n\n.current-weather {\n  flex-direction: column;\n  align-items: center;\n  display: flex;\n}\n\n.temp-large {\n  margin: 0;\n  font-size: 86px;\n  font-weight: 200;\n  line-height: 1;\n}\n\n.condition-row {\n  align-items: center;\n  gap: 6px;\n  margin-top: 4px;\n  display: flex;\n}\n\n.condition-icon {\n  width: 20px;\n  height: 20px;\n}\n\n.condition-icon svg {\n  width: 100%;\n  height: 100%;\n}\n\n.condition-text {\n  font-size: 18px;\n  font-weight: 500;\n}\n\n.high-low {\n  margin-top: 4px;\n  font-size: 18px;\n  font-weight: 500;\n}\n\n.alert-section {\n  border-top: 1px solid #fff3;\n  border-bottom: 1px solid #fff3;\n  align-items: center;\n  gap: 8px;\n  margin: 8px 0;\n  padding: 10px 0;\n  display: flex;\n}\n\n.alert-section ha-icon {\n  --mdc-icon-size: 18px;\n  opacity: .9;\n}\n\n.alert-section span {\n  font-size: 16px;\n  font-weight: 400;\n}\n\n.section-divider {\n  background: #fff3;\n  height: 1px;\n  margin: 8px 0;\n}\n\n.sun {\n  fill: var(--weather-icon-sun-color, #fdd93c);\n}\n\n.moon {\n  fill: var(--weather-icon-moon-color, #fcf497);\n}\n\n.cloud-back {\n  fill: var(--weather-icon-cloud-back-color, #d4d4d4);\n}\n\n.cloud-front {\n  fill: var(--weather-icon-cloud-front-color, #f9f9f9);\n}\n\n.rain {\n  fill: var(--weather-icon-rain-color, #30b3ff);\n}\n\n.snow {\n  fill: var(--weather-icon-snow-color, #f9f9f9);\n  stroke: var(--weather-icon-snow-stroke-color, #d4d4d4);\n  stroke-width: 1px;\n  paint-order: stroke;\n}\n\n.unavailable {\n  text-align: center;\n  color: var(--secondary-text-color);\n  padding: 16px;\n}\n";
 
 
 const $bad2896eba83d519$export$9dd6ff9ea0189349 = (0, $b79cab361f081c93$export$dbf350e5966cf602)`
@@ -2244,11 +2244,13 @@ class $0619ed98411ce264$export$38db9737a908e210 extends (0, $ab210b2da7b39b9d$ex
         this.styles = (0, $b79cab361f081c93$export$dbf350e5966cf602)`
     :host {
       display: block;
+      text-align: left;
     }
 
     .hourly-container {
       display: flex;
       justify-content: flex-start;
+      align-items: flex-start;
       gap: 16px;
       overflow-x: auto;
       padding: 12px 0;
@@ -2380,13 +2382,16 @@ class $c623741b52b7c3fb$export$89805b1b6be728bf extends (0, $ab210b2da7b39b9d$ex
         this.styles = (0, $b79cab361f081c93$export$dbf350e5966cf602)`
     :host {
       display: block;
+      text-align: left;
     }
 
     .daily-container {
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
       gap: 8px;
       padding: 8px 0;
+      width: 100%;
     }
 
     .day-row {
@@ -2395,6 +2400,7 @@ class $c623741b52b7c3fb$export$89805b1b6be728bf extends (0, $ab210b2da7b39b9d$ex
       align-items: center;
       gap: 12px;
       padding: 4px 0;
+      width: 100%;
     }
 
     .day-name {

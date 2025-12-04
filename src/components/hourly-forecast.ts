@@ -13,11 +13,13 @@ export class IosHourlyForecast extends LitElement {
   static styles = css`
     :host {
       display: block;
+      text-align: left;
     }
 
     .hourly-container {
       display: flex;
       justify-content: flex-start;
+      align-items: flex-start;
       gap: 16px;
       overflow-x: auto;
       padding: 12px 0;

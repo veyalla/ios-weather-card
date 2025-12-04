@@ -13,13 +13,16 @@ export class IosDailyForecast extends LitElement {
   static styles = css`
     :host {
       display: block;
+      text-align: left;
     }
 
     .daily-container {
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
       gap: 8px;
       padding: 8px 0;
+      width: 100%;
     }
 
     .day-row {
@@ -28,6 +31,7 @@ export class IosDailyForecast extends LitElement {
       align-items: center;
       gap: 12px;
       padding: 4px 0;
+      width: 100%;
     }
 
     .day-name {

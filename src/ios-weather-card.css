@@ -12,6 +12,13 @@ ha-card {
 
 .card-content {
   padding: 16px;
+  text-align: left;
+}
+
+ios-hourly-forecast,
+ios-daily-forecast {
+  display: block;
+  text-align: left;
 }
 
 /* Header Section */
