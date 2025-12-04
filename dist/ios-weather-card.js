@@ -2750,26 +2750,33 @@ class $9682f2ec906a6ba2$export$90d6bd5d00aee9fc extends (0, $ab210b2da7b39b9d$ex
         return undefined;
     }
     _getAlertText() {
-        const wetConditions = [
-            "rainy",
-            "pouring",
-            "snowy",
-            "snowy-rainy",
-            "hail"
-        ];
         const daily = this._forecastDailyEvent?.forecast;
         const hourly = this._forecastHourlyEvent?.forecast;
         // Check tomorrow's daily forecast first
         if (daily && daily.length > 1) {
             const tomorrow = daily[1];
-            if (wetConditions.includes(tomorrow.condition ?? "")) return "Wet tomorrow";
+            const desc = this._getConditionDescription(tomorrow.condition);
+            if (desc) return `${desc} tomorrow`;
         }
-        // Check if wet conditions in next few hours (today)
-        if (hourly && hourly.length > 0) {
-            const hasRainSoon = hourly.slice(0, 6).some((h)=>(h.precipitation_probability ?? 0) > 30 || wetConditions.includes(h.condition ?? ""));
-            if (hasRainSoon) return "Wet conditions expected";
+        // Check if notable conditions in next few hours (today)
+        if (hourly && hourly.length > 0) for (const h of hourly.slice(0, 6)){
+            const desc = this._getConditionDescription(h.condition);
+            if (desc) return `${desc} expected`;
         }
         return this._formatCondition();
+    }
+    _getConditionDescription(condition) {
+        if (!condition) return null;
+        const descriptions = {
+            "rainy": "Rain",
+            "pouring": "Heavy rain",
+            "snowy": "Snow",
+            "snowy-rainy": "Wintry mix",
+            "hail": "Hail",
+            "lightning": "Thunderstorms",
+            "lightning-rainy": "Thunderstorms"
+        };
+        return descriptions[condition] || null;
     }
     constructor(...args){
         super(...args), this._subscriptions = {

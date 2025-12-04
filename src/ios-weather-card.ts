@@ -287,29 +287,44 @@ export class IosWeatherCard extends LitElement {
   }
 
   private _getAlertText(): string {
-    const wetConditions = ["rainy", "pouring", "snowy", "snowy-rainy", "hail"];
     const daily = this._forecastDailyEvent?.forecast;
     const hourly = this._forecastHourlyEvent?.forecast;
 
     // Check tomorrow's daily forecast first
     if (daily && daily.length > 1) {
       const tomorrow = daily[1];
-      if (wetConditions.includes(tomorrow.condition ?? "")) {
-        return "Wet tomorrow";
+      const desc = this._getConditionDescription(tomorrow.condition);
+      if (desc) {
+        return `${desc} tomorrow`;
       }
     }
 
-    // Check if wet conditions in next few hours (today)
+    // Check if notable conditions in next few hours (today)
     if (hourly && hourly.length > 0) {
-      const hasRainSoon = hourly.slice(0, 6).some(h =>
-        (h.precipitation_probability ?? 0) > 30 ||
-        wetConditions.includes(h.condition ?? "")
-      );
-      if (hasRainSoon) {
-        return "Wet conditions expected";
+      for (const h of hourly.slice(0, 6)) {
+        const desc = this._getConditionDescription(h.condition);
+        if (desc) {
+          return `${desc} expected`;
+        }
       }
     }
 
     return this._formatCondition();
+  }
+
+  private _getConditionDescription(condition?: string): string | null {
+    if (!condition) return null;
+
+    const descriptions: Record<string, string> = {
+      "rainy": "Rain",
+      "pouring": "Heavy rain",
+      "snowy": "Snow",
+      "snowy-rainy": "Wintry mix",
+      "hail": "Hail",
+      "lightning": "Thunderstorms",
+      "lightning-rainy": "Thunderstorms",
+    };
+
+    return descriptions[condition] || null;
   }
 }
