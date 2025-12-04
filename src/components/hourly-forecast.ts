@@ -17,6 +17,7 @@ export class IosHourlyForecast extends LitElement {
 
     .hourly-container {
       display: flex;
+      justify-content: flex-start;
       gap: 16px;
       overflow-x: auto;
       padding: 12px 0;
