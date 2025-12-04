@@ -290,7 +290,19 @@ export class IosWeatherCard extends LitElement {
     const daily = this._forecastDailyEvent?.forecast;
     const hourly = this._forecastHourlyEvent?.forecast;
 
-    // Check tomorrow's daily forecast first
+    // Priority 1: Check imminent conditions (next 6 hours) - most actionable
+    if (hourly && hourly.length > 0) {
+      for (let i = 0; i < Math.min(6, hourly.length); i++) {
+        const h = hourly[i];
+        const desc = this._getConditionDescription(h.condition);
+        if (desc) {
+          const timeDesc = this._getTimeDescription(h.datetime, i);
+          return `${desc} ${timeDesc}`;
+        }
+      }
+    }
+
+    // Priority 2: Tomorrow's forecast (planning info)
     if (daily && daily.length > 1) {
       const tomorrow = daily[1];
       const desc = this._getConditionDescription(tomorrow.condition);
@@ -299,17 +311,21 @@ export class IosWeatherCard extends LitElement {
       }
     }
 
-    // Check if notable conditions in next few hours (today)
-    if (hourly && hourly.length > 0) {
-      for (const h of hourly.slice(0, 6)) {
-        const desc = this._getConditionDescription(h.condition);
-        if (desc) {
-          return `${desc} expected`;
-        }
-      }
-    }
-
+    // Fallback: current condition
     return this._formatCondition();
+  }
+
+  private _getTimeDescription(datetime: string, index: number): string {
+    if (index === 0) return "now";
+    if (index <= 2) return "soon";
+
+    const date = new Date(datetime);
+    const hour = date.getHours();
+
+    if (hour >= 5 && hour < 12) return "this morning";
+    if (hour >= 12 && hour < 17) return "this afternoon";
+    if (hour >= 17 && hour < 21) return "this evening";
+    return "tonight";
   }
 
   private _getConditionDescription(condition?: string): string | null {

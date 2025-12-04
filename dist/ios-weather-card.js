@@ -2752,18 +2752,33 @@ class $9682f2ec906a6ba2$export$90d6bd5d00aee9fc extends (0, $ab210b2da7b39b9d$ex
     _getAlertText() {
         const daily = this._forecastDailyEvent?.forecast;
         const hourly = this._forecastHourlyEvent?.forecast;
-        // Check tomorrow's daily forecast first
+        // Priority 1: Check imminent conditions (next 6 hours) - most actionable
+        if (hourly && hourly.length > 0) for(let i = 0; i < Math.min(6, hourly.length); i++){
+            const h = hourly[i];
+            const desc = this._getConditionDescription(h.condition);
+            if (desc) {
+                const timeDesc = this._getTimeDescription(h.datetime, i);
+                return `${desc} ${timeDesc}`;
+            }
+        }
+        // Priority 2: Tomorrow's forecast (planning info)
         if (daily && daily.length > 1) {
             const tomorrow = daily[1];
             const desc = this._getConditionDescription(tomorrow.condition);
             if (desc) return `${desc} tomorrow`;
         }
-        // Check if notable conditions in next few hours (today)
-        if (hourly && hourly.length > 0) for (const h of hourly.slice(0, 6)){
-            const desc = this._getConditionDescription(h.condition);
-            if (desc) return `${desc} expected`;
-        }
+        // Fallback: current condition
         return this._formatCondition();
+    }
+    _getTimeDescription(datetime, index) {
+        if (index === 0) return "now";
+        if (index <= 2) return "soon";
+        const date = new Date(datetime);
+        const hour = date.getHours();
+        if (hour >= 5 && hour < 12) return "this morning";
+        if (hour >= 12 && hour < 17) return "this afternoon";
+        if (hour >= 17 && hour < 21) return "this evening";
+        return "tonight";
     }
     _getConditionDescription(condition) {
         if (!condition) return null;
