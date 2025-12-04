@@ -2695,7 +2695,6 @@ class $9682f2ec906a6ba2$export$90d6bd5d00aee9fc extends (0, $ab210b2da7b39b9d$ex
 
           <!-- Hourly Forecast -->
           ${hourlyEnabled && hourlyForecast.length > 0 ? (0, $f156c5f18ecaaf3f$export$c0bb0b647f701bb5)`
-            <div class="section-divider"></div>
             <ios-hourly-forecast
               .hass=${this._hass}
               .forecast=${hourlyForecast.slice(0, this._config.num_hourly || 6)}
@@ -2751,28 +2750,24 @@ class $9682f2ec906a6ba2$export$90d6bd5d00aee9fc extends (0, $ab210b2da7b39b9d$ex
         return undefined;
     }
     _getAlertText() {
-        // Check precipitation probability
-        const hourly = this._forecastHourlyEvent?.forecast;
-        if (hourly && hourly.length > 0) {
-            const hasRain = hourly.slice(0, 12).some((h)=>(h.precipitation_probability ?? 0) > 30 || [
-                    "rainy",
-                    "pouring",
-                    "snowy",
-                    "snowy-rainy",
-                    "hail"
-                ].includes(h.condition ?? ""));
-            if (hasRain) return "Wet conditions expected";
-        }
+        const wetConditions = [
+            "rainy",
+            "pouring",
+            "snowy",
+            "snowy-rainy",
+            "hail"
+        ];
         const daily = this._forecastDailyEvent?.forecast;
+        const hourly = this._forecastHourlyEvent?.forecast;
+        // Check tomorrow's daily forecast first
         if (daily && daily.length > 1) {
             const tomorrow = daily[1];
-            if ([
-                "rainy",
-                "pouring",
-                "snowy",
-                "snowy-rainy",
-                "hail"
-            ].includes(tomorrow.condition ?? "")) return "Wet tomorrow";
+            if (wetConditions.includes(tomorrow.condition ?? "")) return "Wet tomorrow";
+        }
+        // Check if wet conditions in next few hours (today)
+        if (hourly && hourly.length > 0) {
+            const hasRainSoon = hourly.slice(0, 6).some((h)=>(h.precipitation_probability ?? 0) > 30 || wetConditions.includes(h.condition ?? ""));
+            if (hasRainSoon) return "Wet conditions expected";
         }
         return this._formatCondition();
     }

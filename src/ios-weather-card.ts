@@ -216,7 +216,6 @@ export class IosWeatherCard extends LitElement {
 
           <!-- Hourly Forecast -->
           ${hourlyEnabled && hourlyForecast.length > 0 ? html`
-            <div class="section-divider"></div>
             <ios-hourly-forecast
               .hass=${this._hass}
               .forecast=${hourlyForecast.slice(0, this._config.num_hourly || 6)}
@@ -288,23 +287,26 @@ export class IosWeatherCard extends LitElement {
   }
 
   private _getAlertText(): string {
-    // Check precipitation probability
+    const wetConditions = ["rainy", "pouring", "snowy", "snowy-rainy", "hail"];
+    const daily = this._forecastDailyEvent?.forecast;
     const hourly = this._forecastHourlyEvent?.forecast;
-    if (hourly && hourly.length > 0) {
-      const hasRain = hourly.slice(0, 12).some(h =>
-        (h.precipitation_probability ?? 0) > 30 ||
-        ["rainy", "pouring", "snowy", "snowy-rainy", "hail"].includes(h.condition ?? "")
-      );
-      if (hasRain) {
-        return "Wet conditions expected";
+
+    // Check tomorrow's daily forecast first
+    if (daily && daily.length > 1) {
+      const tomorrow = daily[1];
+      if (wetConditions.includes(tomorrow.condition ?? "")) {
+        return "Wet tomorrow";
       }
     }
 
-    const daily = this._forecastDailyEvent?.forecast;
-    if (daily && daily.length > 1) {
-      const tomorrow = daily[1];
-      if (["rainy", "pouring", "snowy", "snowy-rainy", "hail"].includes(tomorrow.condition ?? "")) {
-        return "Wet tomorrow";
+    // Check if wet conditions in next few hours (today)
+    if (hourly && hourly.length > 0) {
+      const hasRainSoon = hourly.slice(0, 6).some(h =>
+        (h.precipitation_probability ?? 0) > 30 ||
+        wetConditions.includes(h.condition ?? "")
+      );
+      if (hasRainSoon) {
+        return "Wet conditions expected";
       }
     }
 
