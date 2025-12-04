@@ -58,6 +58,7 @@ export class IosDailyForecast extends LitElement {
 
     .temp-low {
       font-size: 16px;
+      font-variant-numeric: tabular-nums;
       color: var(--card-text-secondary, var(--secondary-text-color));
       min-width: 32px;
       text-align: right;
@@ -83,6 +84,7 @@ export class IosDailyForecast extends LitElement {
     .temp-high {
       font-size: 16px;
       font-weight: 500;
+      font-variant-numeric: tabular-nums;
       color: var(--card-text-color, var(--primary-text-color));
       min-width: 32px;
     }

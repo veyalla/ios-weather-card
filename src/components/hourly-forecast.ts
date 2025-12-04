@@ -58,6 +58,7 @@ export class IosHourlyForecast extends LitElement {
     .hour-temp {
       font-size: 18px;
       font-weight: 500;
+      font-variant-numeric: tabular-nums;
       color: var(--card-text-color, var(--primary-text-color));
     }
 

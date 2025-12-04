@@ -2289,6 +2289,7 @@ class $0619ed98411ce264$export$38db9737a908e210 extends (0, $ab210b2da7b39b9d$ex
     .hour-temp {
       font-size: 18px;
       font-weight: 500;
+      font-variant-numeric: tabular-nums;
       color: var(--card-text-color, var(--primary-text-color));
     }
 
@@ -2427,6 +2428,7 @@ class $c623741b52b7c3fb$export$89805b1b6be728bf extends (0, $ab210b2da7b39b9d$ex
 
     .temp-low {
       font-size: 16px;
+      font-variant-numeric: tabular-nums;
       color: var(--card-text-secondary, var(--secondary-text-color));
       min-width: 32px;
       text-align: right;
@@ -2452,6 +2454,7 @@ class $c623741b52b7c3fb$export$89805b1b6be728bf extends (0, $ab210b2da7b39b9d$ex
     .temp-high {
       font-size: 16px;
       font-weight: 500;
+      font-variant-numeric: tabular-nums;
       color: var(--card-text-color, var(--primary-text-color));
       min-width: 32px;
     }
