@@ -2248,6 +2248,7 @@ class $0619ed98411ce264$export$38db9737a908e210 extends (0, $ab210b2da7b39b9d$ex
 
     .hourly-container {
       display: flex;
+      justify-content: center;
       gap: 16px;
       overflow-x: auto;
       padding: 12px 0;
