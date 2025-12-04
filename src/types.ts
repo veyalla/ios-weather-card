@@ -9,10 +9,13 @@ export interface LovelaceGridOptions {
   max_rows?: number;
 }
 
+export type ThemeMode = 'light' | 'dark' | 'auto';
+
 export interface IosWeatherCardConfig extends LovelaceCardConfig {
   type: "custom:ios-weather-card";
   entity: string;
   name?: string;
+  theme?: ThemeMode;
   show_location?: boolean;
   show_alert?: boolean;
   alert_entity?: string;

@@ -2227,7 +2227,7 @@ const $a670ed82a1e76f75$export$49fb620566936d3e = (attributes, feature)=>// esli
 
 
 var $3980b2957099e800$exports = {};
-$3980b2957099e800$exports = ":host {\n  display: block;\n}\n\nha-card {\n  color: #fff;\n  background: linear-gradient(#2c3e50 0%, #34495e 50%, #4a6278 100%);\n  border-radius: 20px;\n  overflow: hidden;\n}\n\n.card-content {\n  text-align: left;\n  padding: 16px;\n}\n\nios-hourly-forecast, ios-daily-forecast {\n  text-align: left;\n  display: block;\n}\n\n.header {\n  text-align: center;\n  padding-bottom: 12px;\n}\n\n.location {\n  justify-content: center;\n  align-items: center;\n  gap: 4px;\n  margin-bottom: 4px;\n  display: flex;\n}\n\n.location-name {\n  font-size: 24px;\n  font-weight: 400;\n}\n\n.location ha-icon {\n  --mdc-icon-size: 16px;\n  opacity: .8;\n}\n\n.current-weather {\n  flex-direction: column;\n  align-items: center;\n  display: flex;\n}\n\n.temp-large {\n  margin: 0;\n  font-size: 86px;\n  font-weight: 200;\n  line-height: 1;\n}\n\n.condition-row {\n  align-items: center;\n  gap: 6px;\n  margin-top: 4px;\n  display: flex;\n}\n\n.condition-icon {\n  width: 20px;\n  height: 20px;\n}\n\n.condition-icon svg {\n  width: 100%;\n  height: 100%;\n}\n\n.condition-text {\n  font-size: 18px;\n  font-weight: 500;\n}\n\n.high-low {\n  margin-top: 4px;\n  font-size: 18px;\n  font-weight: 500;\n}\n\n.alert-section {\n  border-top: 1px solid #fff3;\n  border-bottom: 1px solid #fff3;\n  align-items: center;\n  gap: 8px;\n  margin: 8px 0;\n  padding: 10px 0;\n  display: flex;\n}\n\n.alert-section ha-icon {\n  --mdc-icon-size: 18px;\n  opacity: .9;\n}\n\n.alert-section span {\n  font-size: 16px;\n  font-weight: 400;\n}\n\n.section-divider {\n  background: #fff3;\n  height: 1px;\n  margin: 8px 0;\n}\n\n.sun {\n  fill: var(--weather-icon-sun-color, #fdd93c);\n}\n\n.moon {\n  fill: var(--weather-icon-moon-color, #fcf497);\n}\n\n.cloud-back {\n  fill: var(--weather-icon-cloud-back-color, #d4d4d4);\n}\n\n.cloud-front {\n  fill: var(--weather-icon-cloud-front-color, #f9f9f9);\n}\n\n.rain {\n  fill: var(--weather-icon-rain-color, #30b3ff);\n}\n\n.snow {\n  fill: var(--weather-icon-snow-color, #f9f9f9);\n  stroke: var(--weather-icon-snow-stroke-color, #d4d4d4);\n  stroke-width: 1px;\n  paint-order: stroke;\n}\n\n.unavailable {\n  text-align: center;\n  color: var(--secondary-text-color);\n  padding: 16px;\n}\n";
+$3980b2957099e800$exports = ":host {\n  --card-background: linear-gradient(180deg, #2c3e50 0%, #34495e 50%, #4a6278 100%);\n  --card-text-color: white;\n  --card-text-secondary: #ffffffb3;\n  --card-border-color: #fff3;\n  --temp-bar-background: #fff3;\n  display: block;\n}\n\n:host(.theme-light) {\n  --card-background: linear-gradient(180deg, #e8f4fc 0%, #d4e9f7 50%, #c5dff2 100%);\n  --card-text-color: #1a1a1a;\n  --card-text-secondary: #0009;\n  --card-border-color: #0000001f;\n  --temp-bar-background: #0000001a;\n}\n\n:host(.theme-dark) {\n  --card-background: linear-gradient(180deg, #2c3e50 0%, #34495e 50%, #4a6278 100%);\n  --card-text-color: white;\n  --card-text-secondary: #ffffffb3;\n  --card-border-color: #fff3;\n  --temp-bar-background: #fff3;\n}\n\nha-card {\n  background: var(--card-background);\n  color: var(--card-text-color);\n  border-radius: 20px;\n  overflow: hidden;\n}\n\n.card-content {\n  text-align: left;\n  padding: 16px;\n}\n\nios-hourly-forecast, ios-daily-forecast {\n  text-align: left;\n  display: block;\n}\n\n.header {\n  text-align: center;\n  padding-bottom: 12px;\n}\n\n.location {\n  justify-content: center;\n  align-items: center;\n  gap: 4px;\n  margin-bottom: 4px;\n  display: flex;\n}\n\n.location-name {\n  font-size: 24px;\n  font-weight: 400;\n}\n\n.location ha-icon {\n  --mdc-icon-size: 16px;\n  opacity: .8;\n}\n\n.current-weather {\n  flex-direction: column;\n  align-items: center;\n  display: flex;\n}\n\n.temp-large {\n  margin: 0;\n  font-size: 86px;\n  font-weight: 200;\n  line-height: 1;\n}\n\n.condition-row {\n  align-items: center;\n  gap: 6px;\n  margin-top: 4px;\n  display: flex;\n}\n\n.condition-icon {\n  width: 20px;\n  height: 20px;\n}\n\n.condition-icon svg {\n  width: 100%;\n  height: 100%;\n}\n\n.condition-text {\n  font-size: 18px;\n  font-weight: 500;\n}\n\n.high-low {\n  margin-top: 4px;\n  font-size: 18px;\n  font-weight: 500;\n}\n\n.alert-section {\n  border-top: 1px solid var(--card-border-color);\n  border-bottom: 1px solid var(--card-border-color);\n  align-items: center;\n  gap: 8px;\n  margin: 8px 0;\n  padding: 10px 0;\n  display: flex;\n}\n\n.alert-section ha-icon {\n  --mdc-icon-size: 18px;\n  opacity: .9;\n}\n\n.alert-section span {\n  font-size: 16px;\n  font-weight: 400;\n}\n\n.section-divider {\n  background: var(--card-border-color);\n  height: 1px;\n  margin: 8px 0;\n}\n\n.sun {\n  fill: var(--weather-icon-sun-color, #fdd93c);\n}\n\n.moon {\n  fill: var(--weather-icon-moon-color, #fcf497);\n}\n\n.cloud-back {\n  fill: var(--weather-icon-cloud-back-color, #d4d4d4);\n}\n\n.cloud-front {\n  fill: var(--weather-icon-cloud-front-color, #f9f9f9);\n}\n\n.rain {\n  fill: var(--weather-icon-rain-color, #30b3ff);\n}\n\n.snow {\n  fill: var(--weather-icon-snow-color, #f9f9f9);\n  stroke: var(--weather-icon-snow-stroke-color, #d4d4d4);\n  stroke-width: 1px;\n  paint-order: stroke;\n}\n\n.unavailable {\n  text-align: center;\n  color: var(--secondary-text-color);\n  padding: 16px;\n}\n";
 
 
 const $bad2896eba83d519$export$9dd6ff9ea0189349 = (0, $b79cab361f081c93$export$dbf350e5966cf602)`
@@ -2273,7 +2273,7 @@ class $0619ed98411ce264$export$38db9737a908e210 extends (0, $ab210b2da7b39b9d$ex
     .hour-time {
       font-size: 14px;
       font-weight: 500;
-      color: var(--primary-text-color);
+      color: var(--card-text-color, var(--primary-text-color));
     }
 
     .hour-icon {
@@ -2289,7 +2289,7 @@ class $0619ed98411ce264$export$38db9737a908e210 extends (0, $ab210b2da7b39b9d$ex
     .hour-temp {
       font-size: 18px;
       font-weight: 500;
-      color: var(--primary-text-color);
+      color: var(--card-text-color, var(--primary-text-color));
     }
 
     /* Weather icon colors */
@@ -2406,7 +2406,7 @@ class $c623741b52b7c3fb$export$89805b1b6be728bf extends (0, $ab210b2da7b39b9d$ex
     .day-name {
       font-size: 16px;
       font-weight: 500;
-      color: var(--primary-text-color);
+      color: var(--card-text-color, var(--primary-text-color));
     }
 
     .day-icon {
@@ -2427,7 +2427,7 @@ class $c623741b52b7c3fb$export$89805b1b6be728bf extends (0, $ab210b2da7b39b9d$ex
 
     .temp-low {
       font-size: 16px;
-      color: var(--secondary-text-color);
+      color: var(--card-text-secondary, var(--secondary-text-color));
       min-width: 32px;
       text-align: right;
     }
@@ -2435,7 +2435,7 @@ class $c623741b52b7c3fb$export$89805b1b6be728bf extends (0, $ab210b2da7b39b9d$ex
     .temp-bar-wrapper {
       flex: 1;
       height: 6px;
-      background: rgba(255, 255, 255, 0.2);
+      background: var(--temp-bar-background, rgba(255, 255, 255, 0.2));
       border-radius: 3px;
       position: relative;
       overflow: hidden;
@@ -2452,7 +2452,7 @@ class $c623741b52b7c3fb$export$89805b1b6be728bf extends (0, $ab210b2da7b39b9d$ex
     .temp-high {
       font-size: 16px;
       font-weight: 500;
-      color: var(--primary-text-color);
+      color: var(--card-text-color, var(--primary-text-color));
       min-width: 32px;
     }
 
@@ -2566,6 +2566,7 @@ class $9682f2ec906a6ba2$export$90d6bd5d00aee9fc extends (0, $ab210b2da7b39b9d$ex
         const defaults = {
             type: "custom:ios-weather-card",
             ...config,
+            theme: config.theme ?? "auto",
             show_location: config.show_location ?? true,
             show_alert: config.show_alert ?? true,
             hourly_forecast: config.hourly_forecast ?? true,
@@ -2602,6 +2603,7 @@ class $9682f2ec906a6ba2$export$90d6bd5d00aee9fc extends (0, $ab210b2da7b39b9d$ex
         return {
             type: "custom:ios-weather-card",
             entity: weatherEntity ?? "weather.home",
+            theme: "auto",
             show_location: true,
             show_alert: true,
             hourly_forecast: true,
@@ -2647,6 +2649,8 @@ class $9682f2ec906a6ba2$export$90d6bd5d00aee9fc extends (0, $ab210b2da7b39b9d$ex
     updated(changedProps) {
         super.updated(changedProps);
         if (!this._config || !this._hass) return;
+        // Update theme class on every update to react to HA theme changes
+        this._updateThemeClass();
         if (changedProps.has("_config") || !this._subscriptions.hourly && !this._subscriptions.daily) this._subscribeForecastEvents();
     }
     render() {
@@ -2745,6 +2749,47 @@ class $9682f2ec906a6ba2$export$90d6bd5d00aee9fc extends (0, $ab210b2da7b39b9d$ex
         if (typeof isDaytime === "boolean") return !isDaytime;
         const hour = new Date().getHours();
         return hour < 6 || hour >= 20;
+    }
+    _resolveTheme() {
+        const configTheme = this._config?.theme ?? 'auto';
+        if (configTheme === 'light') return 'light';
+        if (configTheme === 'dark') return 'dark';
+        // Auto mode: detect from HA theme
+        // Check hass.themes.darkMode (available in newer HA versions)
+        const hass = this._hass;
+        if (hass?.themes?.darkMode !== undefined) return hass.themes.darkMode ? 'dark' : 'light';
+        // Fallback: check computed background color luminance
+        const bgColor = getComputedStyle(this).getPropertyValue('--primary-background-color')?.trim();
+        if (bgColor) {
+            const luminance = this._getColorLuminance(bgColor);
+            if (luminance !== null) return luminance < 0.5 ? 'dark' : 'light';
+        }
+        // Default to dark if detection fails
+        return 'dark';
+    }
+    _getColorLuminance(color) {
+        // Handle rgb/rgba format
+        const rgbMatch = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+        if (rgbMatch) {
+            const r = parseInt(rgbMatch[1]) / 255;
+            const g = parseInt(rgbMatch[2]) / 255;
+            const b = parseInt(rgbMatch[3]) / 255;
+            return 0.299 * r + 0.587 * g + 0.114 * b;
+        }
+        // Handle hex format
+        const hexMatch = color.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
+        if (hexMatch) {
+            const r = parseInt(hexMatch[1], 16) / 255;
+            const g = parseInt(hexMatch[2], 16) / 255;
+            const b = parseInt(hexMatch[3], 16) / 255;
+            return 0.299 * r + 0.587 * g + 0.114 * b;
+        }
+        return null;
+    }
+    _updateThemeClass() {
+        const theme = this._resolveTheme();
+        this.classList.remove('theme-light', 'theme-dark');
+        this.classList.add(`theme-${theme}`);
     }
     _getHighTemp() {
         const daily = this._forecastDailyEvent?.forecast;

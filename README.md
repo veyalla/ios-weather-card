@@ -10,6 +10,7 @@ A Home Assistant custom card that replicates the iOS Weather app design.
 - Weather alerts/summary section
 - Hourly forecast strip
 - Multi-day forecast with temperature range bars
+- Light/Dark/Auto theme support
 
 ## Installation
 
@@ -39,6 +40,7 @@ resources:
 type: custom:ios-weather-card
 entity: weather.home
 name: My Location  # Optional - defaults to entity friendly name
+theme: auto  # Options: light, dark, auto
 show_location: true
 show_alert: true
 hourly_forecast: true
@@ -53,6 +55,7 @@ num_daily: 5
 |------|------|---------|-------------|
 | entity | string | **Required** | Weather entity ID |
 | name | string | Entity name | Display name for location |
+| theme | string | auto | Card theme: `light`, `dark`, or `auto` (follows HA theme) |
 | show_location | boolean | true | Show location header |
 | show_alert | boolean | true | Show weather alert/summary |
 | hourly_forecast | boolean | true | Show hourly forecast |

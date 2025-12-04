@@ -37,7 +37,7 @@ export class IosDailyForecast extends LitElement {
     .day-name {
       font-size: 16px;
       font-weight: 500;
-      color: var(--primary-text-color);
+      color: var(--card-text-color, var(--primary-text-color));
     }
 
     .day-icon {
@@ -58,7 +58,7 @@ export class IosDailyForecast extends LitElement {
 
     .temp-low {
       font-size: 16px;
-      color: var(--secondary-text-color);
+      color: var(--card-text-secondary, var(--secondary-text-color));
       min-width: 32px;
       text-align: right;
     }
@@ -66,7 +66,7 @@ export class IosDailyForecast extends LitElement {
     .temp-bar-wrapper {
       flex: 1;
       height: 6px;
-      background: rgba(255, 255, 255, 0.2);
+      background: var(--temp-bar-background, rgba(255, 255, 255, 0.2));
       border-radius: 3px;
       position: relative;
       overflow: hidden;
@@ -83,7 +83,7 @@ export class IosDailyForecast extends LitElement {
     .temp-high {
       font-size: 16px;
       font-weight: 500;
-      color: var(--primary-text-color);
+      color: var(--card-text-color, var(--primary-text-color));
       min-width: 32px;
     }
 

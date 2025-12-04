@@ -42,7 +42,7 @@ export class IosHourlyForecast extends LitElement {
     .hour-time {
       font-size: 14px;
       font-weight: 500;
-      color: var(--primary-text-color);
+      color: var(--card-text-color, var(--primary-text-color));
     }
 
     .hour-icon {
@@ -58,7 +58,7 @@ export class IosHourlyForecast extends LitElement {
     .hour-temp {
       font-size: 18px;
       font-weight: 500;
-      color: var(--primary-text-color);
+      color: var(--card-text-color, var(--primary-text-color));
     }
 
     /* Weather icon colors */

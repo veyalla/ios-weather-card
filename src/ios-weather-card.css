@@ -1,13 +1,38 @@
 /* iOS Weather Card Styles */
 :host {
   display: block;
+
+  /* Default theme variables (dark theme) */
+  --card-background: linear-gradient(180deg, #2c3e50 0%, #34495e 50%, #4a6278 100%);
+  --card-text-color: white;
+  --card-text-secondary: rgba(255, 255, 255, 0.7);
+  --card-border-color: rgba(255, 255, 255, 0.2);
+  --temp-bar-background: rgba(255, 255, 255, 0.2);
+}
+
+/* Light theme */
+:host(.theme-light) {
+  --card-background: linear-gradient(180deg, #e8f4fc 0%, #d4e9f7 50%, #c5dff2 100%);
+  --card-text-color: #1a1a1a;
+  --card-text-secondary: rgba(0, 0, 0, 0.6);
+  --card-border-color: rgba(0, 0, 0, 0.12);
+  --temp-bar-background: rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme (explicit) */
+:host(.theme-dark) {
+  --card-background: linear-gradient(180deg, #2c3e50 0%, #34495e 50%, #4a6278 100%);
+  --card-text-color: white;
+  --card-text-secondary: rgba(255, 255, 255, 0.7);
+  --card-border-color: rgba(255, 255, 255, 0.2);
+  --temp-bar-background: rgba(255, 255, 255, 0.2);
 }
 
 ha-card {
-  background: linear-gradient(180deg, #2c3e50 0%, #34495e 50%, #4a6278 100%);
+  background: var(--card-background);
   border-radius: 20px;
   overflow: hidden;
-  color: white;
+  color: var(--card-text-color);
 }
 
 .card-content {
@@ -92,8 +117,8 @@ ios-daily-forecast {
   align-items: center;
   gap: 8px;
   padding: 10px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-top: 1px solid var(--card-border-color);
+  border-bottom: 1px solid var(--card-border-color);
   margin: 8px 0;
 }
 
@@ -110,7 +135,7 @@ ios-daily-forecast {
 /* Section Divider */
 .section-divider {
   height: 1px;
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--card-border-color);
   margin: 8px 0;
 }
 

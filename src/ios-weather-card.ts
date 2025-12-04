@@ -1,10 +1,11 @@
 import type { PropertyValues } from "lit";
 import { LitElement, html, nothing } from "lit";
 import { state } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 import type { ForecastEvent, WeatherEntity, ForecastAttribute } from "./weather";
 import { subscribeForecast, getWeatherStateIcon } from "./weather";
 import type { HomeAssistant } from "custom-card-helpers";
-import { IosWeatherCardConfig, LovelaceGridOptions } from "./types";
+import { IosWeatherCardConfig, LovelaceGridOptions, ThemeMode } from "./types";
 import { styles } from "./ios-weather-card.styles";
 import "./components/hourly-forecast";
 import "./components/daily-forecast";
@@ -33,6 +34,7 @@ export class IosWeatherCard extends LitElement {
     const defaults: IosWeatherCardConfig = {
       type: "custom:ios-weather-card",
       ...config,
+      theme: config.theme ?? "auto",
       show_location: config.show_location ?? true,
       show_alert: config.show_alert ?? true,
       hourly_forecast: config.hourly_forecast ?? true,
@@ -78,6 +80,7 @@ export class IosWeatherCard extends LitElement {
     return {
       type: "custom:ios-weather-card",
       entity: weatherEntity ?? "weather.home",
+      theme: "auto",
       show_location: true,
       show_alert: true,
       hourly_forecast: true,
@@ -149,6 +152,9 @@ export class IosWeatherCard extends LitElement {
     if (!this._config || !this._hass) {
       return;
     }
+
+    // Update theme class on every update to react to HA theme changes
+    this._updateThemeClass();
 
     if (changedProps.has("_config") || (!this._subscriptions.hourly && !this._subscriptions.daily)) {
       this._subscribeForecastEvents();
@@ -268,6 +274,60 @@ export class IosWeatherCard extends LitElement {
 
     const hour = new Date().getHours();
     return hour < 6 || hour >= 20;
+  }
+
+  private _resolveTheme(): 'light' | 'dark' {
+    const configTheme = this._config?.theme ?? 'auto';
+
+    if (configTheme === 'light') return 'light';
+    if (configTheme === 'dark') return 'dark';
+
+    // Auto mode: detect from HA theme
+    // Check hass.themes.darkMode (available in newer HA versions)
+    const hass = this._hass as any;
+    if (hass?.themes?.darkMode !== undefined) {
+      return hass.themes.darkMode ? 'dark' : 'light';
+    }
+
+    // Fallback: check computed background color luminance
+    const bgColor = getComputedStyle(this).getPropertyValue('--primary-background-color')?.trim();
+    if (bgColor) {
+      const luminance = this._getColorLuminance(bgColor);
+      if (luminance !== null) {
+        return luminance < 0.5 ? 'dark' : 'light';
+      }
+    }
+
+    // Default to dark if detection fails
+    return 'dark';
+  }
+
+  private _getColorLuminance(color: string): number | null {
+    // Handle rgb/rgba format
+    const rgbMatch = color.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+    if (rgbMatch) {
+      const r = parseInt(rgbMatch[1]) / 255;
+      const g = parseInt(rgbMatch[2]) / 255;
+      const b = parseInt(rgbMatch[3]) / 255;
+      return 0.299 * r + 0.587 * g + 0.114 * b;
+    }
+
+    // Handle hex format
+    const hexMatch = color.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
+    if (hexMatch) {
+      const r = parseInt(hexMatch[1], 16) / 255;
+      const g = parseInt(hexMatch[2], 16) / 255;
+      const b = parseInt(hexMatch[3], 16) / 255;
+      return 0.299 * r + 0.587 * g + 0.114 * b;
+    }
+
+    return null;
+  }
+
+  private _updateThemeClass(): void {
+    const theme = this._resolveTheme();
+    this.classList.remove('theme-light', 'theme-dark');
+    this.classList.add(`theme-${theme}`);
   }
 
   private _getHighTemp(): number | undefined {
