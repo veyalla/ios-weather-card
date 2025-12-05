@@ -2571,6 +2571,7 @@ class $9682f2ec906a6ba2$export$90d6bd5d00aee9fc extends (0, $ab210b2da7b39b9d$ex
             ...config,
             theme: config.theme ?? "auto",
             show_location: config.show_location ?? true,
+            show_current_temp: config.show_current_temp ?? true,
             show_alert: config.show_alert ?? true,
             hourly_forecast: config.hourly_forecast ?? true,
             daily_forecast: config.daily_forecast ?? true,
@@ -2601,6 +2602,9 @@ class $9682f2ec906a6ba2$export$90d6bd5d00aee9fc extends (0, $ab210b2da7b39b9d$ex
     static{
         this.styles = (0, $bad2896eba83d519$export$9dd6ff9ea0189349);
     }
+    static getConfigElement() {
+        return document.createElement("ios-weather-card-editor");
+    }
     static getStubConfig(hass) {
         const weatherEntity = Object.keys(hass?.states ?? {}).find((entityId)=>entityId.startsWith("weather."));
         return {
@@ -2608,6 +2612,7 @@ class $9682f2ec906a6ba2$export$90d6bd5d00aee9fc extends (0, $ab210b2da7b39b9d$ex
             entity: weatherEntity ?? "weather.home",
             theme: "auto",
             show_location: true,
+            show_current_temp: true,
             show_alert: true,
             hourly_forecast: true,
             daily_forecast: true,
@@ -2669,6 +2674,7 @@ class $9682f2ec906a6ba2$export$90d6bd5d00aee9fc extends (0, $ab210b2da7b39b9d$ex
         </ha-card>
       `;
         const showLocation = this._config.show_location !== false;
+        const showCurrentTemp = this._config.show_current_temp !== false;
         const showAlert = this._config.show_alert !== false;
         const hourlyEnabled = this._config.hourly_forecast !== false;
         const dailyEnabled = this._config.daily_forecast !== false;
@@ -2686,17 +2692,19 @@ class $9682f2ec906a6ba2$export$90d6bd5d00aee9fc extends (0, $ab210b2da7b39b9d$ex
               </div>
             ` : (0, $f156c5f18ecaaf3f$export$45b790e32b2810ee)}
 
-            <div class="current-weather">
-              <div class="temp-large">${this._formatTemperature(this._state.attributes.temperature)}</div>
-              <div class="condition-row">
-                <span class="condition-icon">${this._getConditionIcon()}</span>
-                <span class="condition-text">${this._formatCondition()}</span>
+            ${showCurrentTemp ? (0, $f156c5f18ecaaf3f$export$c0bb0b647f701bb5)`
+              <div class="current-weather">
+                <div class="temp-large">${this._formatTemperature(this._state.attributes.temperature)}</div>
+                <div class="condition-row">
+                  <span class="condition-icon">${this._getConditionIcon()}</span>
+                  <span class="condition-text">${this._formatCondition()}</span>
+                </div>
+                <div class="high-low">
+                  H:${this._formatTemperature(this._getHighTemp())}
+                  L:${this._formatTemperature(this._getLowTemp())}
+                </div>
               </div>
-              <div class="high-low">
-                H:${this._formatTemperature(this._getHighTemp())}
-                L:${this._formatTemperature(this._getLowTemp())}
-              </div>
-            </div>
+            ` : (0, $f156c5f18ecaaf3f$export$45b790e32b2810ee)}
           </div>
 
           <!-- Alert Section -->
@@ -2878,7 +2886,229 @@ class $9682f2ec906a6ba2$export$90d6bd5d00aee9fc extends (0, $ab210b2da7b39b9d$ex
 ], $9682f2ec906a6ba2$export$90d6bd5d00aee9fc.prototype, "_forecastHourlyEvent", void 0);
 
 
+
+
+
+class $3641d2d97dcefddf$export$e71586719bc5c3cc extends (0, $ab210b2da7b39b9d$export$3f2f9f5909897157) {
+    set hass(hass) {
+        this._hass = hass;
+    }
+    setConfig(config) {
+        this._config = config;
+    }
+    _valueChanged(ev) {
+        if (!this._config || !this._hass) return;
+        const target = ev.target;
+        const configKey = target.configValue;
+        let newValue;
+        if (target.type === "checkbox") newValue = target.checked;
+        else if (target.type === "number") newValue = parseInt(target.value, 10);
+        else newValue = target.value;
+        if (this._config[configKey] === newValue) return;
+        const newConfig = {
+            ...this._config,
+            [configKey]: newValue
+        };
+        this.dispatchEvent(new CustomEvent("config-changed", {
+            detail: {
+                config: newConfig
+            },
+            bubbles: true,
+            composed: true
+        }));
+    }
+    _getWeatherEntities() {
+        if (!this._hass) return [];
+        return Object.keys(this._hass.states).filter((entityId)=>entityId.startsWith("weather.")).sort();
+    }
+    static{
+        this.styles = (0, $b79cab361f081c93$export$dbf350e5966cf602)`
+    .form-row {
+      display: flex;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--divider-color, #e0e0e0);
+    }
+    .form-row:last-child {
+      border-bottom: none;
+    }
+    .form-row label {
+      flex: 1;
+      font-weight: 500;
+    }
+    .form-row input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+    }
+    .form-row input[type="number"] {
+      width: 60px;
+      padding: 4px 8px;
+      border: 1px solid var(--divider-color, #ccc);
+      border-radius: 4px;
+    }
+    .form-row select {
+      padding: 4px 8px;
+      border: 1px solid var(--divider-color, #ccc);
+      border-radius: 4px;
+      background: var(--card-background-color, #fff);
+      color: var(--primary-text-color, #000);
+    }
+    .form-row input[type="text"] {
+      width: 150px;
+      padding: 4px 8px;
+      border: 1px solid var(--divider-color, #ccc);
+      border-radius: 4px;
+    }
+    .section-title {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--primary-color, #03a9f4);
+      margin: 16px 0 8px 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .section-title:first-child {
+      margin-top: 0;
+    }
+  `;
+    }
+    render() {
+        if (!this._hass || !this._config) return 0, $f156c5f18ecaaf3f$export$45b790e32b2810ee;
+        const weatherEntities = this._getWeatherEntities();
+        return (0, $f156c5f18ecaaf3f$export$c0bb0b647f701bb5)`
+      <div class="section-title">Entity</div>
+
+      <div class="form-row">
+        <label>Weather Entity</label>
+        <select
+          .configValue=${"entity"}
+          .value=${this._config.entity || ""}
+          @change=${this._valueChanged}
+        >
+          ${weatherEntities.map((entity)=>(0, $f156c5f18ecaaf3f$export$c0bb0b647f701bb5)`
+              <option value=${entity} ?selected=${entity === this._config.entity}>
+                ${this._hass.states[entity]?.attributes?.friendly_name || entity}
+              </option>
+            `)}
+        </select>
+      </div>
+
+      <div class="form-row">
+        <label>Custom Name</label>
+        <input
+          type="text"
+          .configValue=${"name"}
+          .value=${this._config.name || ""}
+          @input=${this._valueChanged}
+          placeholder="Optional"
+        />
+      </div>
+
+      <div class="section-title">Appearance</div>
+
+      <div class="form-row">
+        <label>Theme</label>
+        <select
+          .configValue=${"theme"}
+          .value=${this._config.theme || "auto"}
+          @change=${this._valueChanged}
+        >
+          <option value="auto" ?selected=${this._config.theme === "auto"}>Auto</option>
+          <option value="light" ?selected=${this._config.theme === "light"}>Light</option>
+          <option value="dark" ?selected=${this._config.theme === "dark"}>Dark</option>
+        </select>
+      </div>
+
+      <div class="section-title">Display Options</div>
+
+      <div class="form-row">
+        <label>Show Location</label>
+        <input
+          type="checkbox"
+          .configValue=${"show_location"}
+          .checked=${this._config.show_location !== false}
+          @change=${this._valueChanged}
+        />
+      </div>
+
+      <div class="form-row">
+        <label>Show Current Temperature</label>
+        <input
+          type="checkbox"
+          .configValue=${"show_current_temp"}
+          .checked=${this._config.show_current_temp !== false}
+          @change=${this._valueChanged}
+        />
+      </div>
+
+      <div class="form-row">
+        <label>Show Alert</label>
+        <input
+          type="checkbox"
+          .configValue=${"show_alert"}
+          .checked=${this._config.show_alert !== false}
+          @change=${this._valueChanged}
+        />
+      </div>
+
+      <div class="section-title">Forecast</div>
+
+      <div class="form-row">
+        <label>Show Hourly Forecast</label>
+        <input
+          type="checkbox"
+          .configValue=${"hourly_forecast"}
+          .checked=${this._config.hourly_forecast !== false}
+          @change=${this._valueChanged}
+        />
+      </div>
+
+      <div class="form-row">
+        <label>Number of Hourly Items</label>
+        <input
+          type="number"
+          .configValue=${"num_hourly"}
+          .value=${this._config.num_hourly ?? 6}
+          min="1"
+          max="24"
+          @change=${this._valueChanged}
+        />
+      </div>
+
+      <div class="form-row">
+        <label>Show Daily Forecast</label>
+        <input
+          type="checkbox"
+          .configValue=${"daily_forecast"}
+          .checked=${this._config.daily_forecast !== false}
+          @change=${this._valueChanged}
+        />
+      </div>
+
+      <div class="form-row">
+        <label>Number of Daily Items</label>
+        <input
+          type="number"
+          .configValue=${"num_daily"}
+          .value=${this._config.num_daily ?? 5}
+          min="1"
+          max="10"
+          @change=${this._valueChanged}
+        />
+      </div>
+    `;
+    }
+}
+(0, $24c52f343453d62d$export$29e00dfd3077644b)([
+    (0, $d728c145a8b96d94$export$ca000e230c0caa3e)()
+], $3641d2d97dcefddf$export$e71586719bc5c3cc.prototype, "_config", void 0);
+(0, $24c52f343453d62d$export$29e00dfd3077644b)([
+    (0, $d728c145a8b96d94$export$ca000e230c0caa3e)()
+], $3641d2d97dcefddf$export$e71586719bc5c3cc.prototype, "_hass", void 0);
+
+
 customElements.define("ios-weather-card", (0, $9682f2ec906a6ba2$export$90d6bd5d00aee9fc));
+customElements.define("ios-weather-card-editor", (0, $3641d2d97dcefddf$export$e71586719bc5c3cc));
 window.customCards = window.customCards || [];
 window.customCards.push({
     type: "ios-weather-card",

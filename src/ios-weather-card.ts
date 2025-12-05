@@ -36,6 +36,7 @@ export class IosWeatherCard extends LitElement {
       ...config,
       theme: config.theme ?? "auto",
       show_location: config.show_location ?? true,
+      show_current_temp: config.show_current_temp ?? true,
       show_alert: config.show_alert ?? true,
       hourly_forecast: config.hourly_forecast ?? true,
       daily_forecast: config.daily_forecast ?? true,
@@ -73,6 +74,10 @@ export class IosWeatherCard extends LitElement {
 
   static styles = styles;
 
+  static getConfigElement() {
+    return document.createElement("ios-weather-card-editor");
+  }
+
   static getStubConfig(hass: HomeAssistant): IosWeatherCardConfig {
     const weatherEntity = Object.keys(hass?.states ?? {}).find(entityId =>
       entityId.startsWith("weather.")
@@ -82,6 +87,7 @@ export class IosWeatherCard extends LitElement {
       entity: weatherEntity ?? "weather.home",
       theme: "auto",
       show_location: true,
+      show_current_temp: true,
       show_alert: true,
       hourly_forecast: true,
       daily_forecast: true,
@@ -181,6 +187,7 @@ export class IosWeatherCard extends LitElement {
     }
 
     const showLocation = this._config.show_location !== false;
+    const showCurrentTemp = this._config.show_current_temp !== false;
     const showAlert = this._config.show_alert !== false;
     const hourlyEnabled = this._config.hourly_forecast !== false;
     const dailyEnabled = this._config.daily_forecast !== false;
@@ -199,17 +206,19 @@ export class IosWeatherCard extends LitElement {
               </div>
             ` : nothing}
 
-            <div class="current-weather">
-              <div class="temp-large">${this._formatTemperature(this._state.attributes.temperature)}</div>
-              <div class="condition-row">
-                <span class="condition-icon">${this._getConditionIcon()}</span>
-                <span class="condition-text">${this._formatCondition()}</span>
+            ${showCurrentTemp ? html`
+              <div class="current-weather">
+                <div class="temp-large">${this._formatTemperature(this._state.attributes.temperature)}</div>
+                <div class="condition-row">
+                  <span class="condition-icon">${this._getConditionIcon()}</span>
+                  <span class="condition-text">${this._formatCondition()}</span>
+                </div>
+                <div class="high-low">
+                  H:${this._formatTemperature(this._getHighTemp())}
+                  L:${this._formatTemperature(this._getLowTemp())}
+                </div>
               </div>
-              <div class="high-low">
-                H:${this._formatTemperature(this._getHighTemp())}
-                L:${this._formatTemperature(this._getLowTemp())}
-              </div>
-            </div>
+            ` : nothing}
           </div>
 
           <!-- Alert Section -->

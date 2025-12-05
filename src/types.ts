@@ -17,6 +17,7 @@ export interface IosWeatherCardConfig extends LovelaceCardConfig {
   name?: string;
   theme?: ThemeMode;
   show_location?: boolean;
+  show_current_temp?: boolean;
   show_alert?: boolean;
   alert_entity?: string;
   hourly_forecast?: boolean;
