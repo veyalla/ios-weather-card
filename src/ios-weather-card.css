@@ -29,6 +29,7 @@
 }
 
 ha-card {
+  position: relative;
   background: var(--card-background);
   border-radius: 20px;
   overflow: hidden;
