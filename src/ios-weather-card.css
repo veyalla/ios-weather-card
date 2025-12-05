@@ -1,6 +1,7 @@
 /* iOS Weather Card Styles */
 :host {
   display: block;
+  position: relative;
 
   /* Default theme variables (dark theme) */
   --card-background: linear-gradient(180deg, #2c3e50 0%, #34495e 50%, #4a6278 100%);
@@ -30,6 +31,7 @@
 
 ha-card {
   position: relative;
+  z-index: 0;
   background: var(--card-background);
   border-radius: 20px;
   overflow: hidden;
@@ -134,7 +136,7 @@ ios-daily-forecast {
 }
 
 .alert-section.no-top-border {
-  border-top: none;
+  border-top: none !important;
 }
 
 /* Section Divider */
