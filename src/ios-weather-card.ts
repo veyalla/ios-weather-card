@@ -223,7 +223,7 @@ export class IosWeatherCard extends LitElement {
 
           <!-- Alert Section -->
           ${showAlert ? html`
-            <div class="alert-section">
+            <div class="alert-section ${showCurrentTemp ? '' : 'no-top-border'}">
               <ha-icon icon="mdi:umbrella"></ha-icon>
               <span>${this._getAlertText()}</span>
             </div>

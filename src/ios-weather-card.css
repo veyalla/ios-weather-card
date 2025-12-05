@@ -133,6 +133,10 @@ ios-daily-forecast {
   font-weight: 400;
 }
 
+.alert-section.no-top-border {
+  border-top: none;
+}
+
 /* Section Divider */
 .section-divider {
   height: 1px;
